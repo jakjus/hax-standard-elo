@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node run.ts"
+    "start": "ts-node index.ts"
   },
   "author": "Jakub Juszko",
   "types": [
