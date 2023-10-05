@@ -1,0 +1,27 @@
+{
+  "name": "hax-elo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node run.ts"
+  },
+  "author": "Jakub Juszko",
+  "types": [
+    "haxball-headless-browser"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/jakjus/hax-standard-elo#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakjus/hax-climb.git"
+  },
+  "description": "Universal Elo Plugin for Haxball Rooms",
+  "dependencies": {
+    "haxball.js": "^2.1.2",
+    "ts-node": "^10.9.1"
+  },
+  "engines": {
+    "npm": ">=8.6.0",
+    "node": ">=16.0.0"
+  }
+}
