@@ -1,4 +1,3 @@
-const defaultElo = 1200
 type GetElo = (playerId: number) => Promise<number>
 type SetElo = (playerId: number, newElo: number) => void
 type ChangeElo = (playerId: number, change: number) => void  // change can be negative
@@ -12,7 +11,10 @@ interface PlayerObjectWithElo extends PlayerObject {
 }
 
 const getAvgElo = (playerListWithElo: PlayerObjectWithElo[]): number => {
-  return playerListWithElo.length == 0 ? defaultElo : playerListWithElo
+  if (playerListWithElo.length == 0) {
+    throw("there are no players with elo in one of the teams")
+  }
+  return playerListWithElo
   .map(p => p.elo)
   .reduce((a,b) => a+b, 0)/playerListWithElo.length
 }
@@ -74,4 +76,4 @@ const calculateAndExec = async (room: RoomObject, getEloOfPlayer: GetElo, change
   await execChanges(changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer)
 }
 
-export { calculateChanges, execChanges, calculateAndExec, GetElo, ChangeElo, SetElo, PlayerObjectWithElo }
+export { calculateChanges, execChanges, calculateAndExec, GetElo, ChangeElo, SetElo, PlayerObjectWithElo, Change }
