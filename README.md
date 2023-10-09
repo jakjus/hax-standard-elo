@@ -104,5 +104,5 @@ npm run build
 ```
 
 ## Sidenotes
-1. Getting data
+### Getting data
 For performance purposes, you may want to get all the players data in one query. Then `getEloOfPlayer` should read individual players Elo from parsed data.
