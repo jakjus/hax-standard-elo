@@ -5,6 +5,12 @@ interface Change {
   playerId: number,
   change: number,
 }
+interface Options {
+  k: number  // coefficient in ELO algorithm. maximum ELO point change per game. default: 30
+}
+const defaults: Options = {
+  k: 30
+}
 
 interface PlayerObjectWithElo extends PlayerObject {
   elo: number,
@@ -19,8 +25,9 @@ const getAvgElo = (playerListWithElo: PlayerObjectWithElo[]): number => {
   .reduce((a,b) => a+b, 0)/playerListWithElo.length
 }
 
-const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo): Promise<Change[]> => {
-  const k = 30
+const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo, options?: Options): Promise<Change[]> => {
+  const mergedOptions: Options = { ...defaults, ...options }
+  const k = mergedOptions.k
   const getp1 = (elo: number, enemyTeamElo: number) => 1 / (1 + 10 ** ((elo - enemyTeamElo) / 400));
 
   const scores = room.getScores()
@@ -31,7 +38,6 @@ const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo): Promi
     const elo = await getEloOfPlayer(p.id)
     return {...p, elo }}))
   const playersWithElo = await promisePlayersWithElo
-  console.log('playerswithelo', playersWithElo)
 
   const losers = playersWithElo.filter(p => p.team == loserTeamId)
   const loserTeamElo = getAvgElo(losers)
@@ -58,7 +64,7 @@ const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo): Promi
 }
 
 const execChanges = async (changeList: Change[], getEloOfPlayer?: GetElo, changeEloOfPlayer?: ChangeElo, setEloOfPlayer?: SetElo) => {
-  // either use SetElo or atomic ChangeElo
+  // either use atomic ChangeElo or non-atomic SetElo
   if (changeEloOfPlayer) {
     changeList.forEach(c => changeEloOfPlayer(c.playerId, c.change))
   } else if (setEloOfPlayer && getEloOfPlayer) {
@@ -71,9 +77,9 @@ const execChanges = async (changeList: Change[], getEloOfPlayer?: GetElo, change
   }
 }
 
-const calculateAndExec = async (room: RoomObject, getEloOfPlayer: GetElo, changeEloOfPlayer?: ChangeElo, setEloOfPlayer?: SetElo): Promise<void> => {
-  const changeList = await calculateChanges(room, getEloOfPlayer)
+const calculateAndExec = async (room: RoomObject, getEloOfPlayer: GetElo, changeEloOfPlayer?: ChangeElo, setEloOfPlayer?: SetElo, options?: Options): Promise<void> => {
+  const changeList = await calculateChanges(room, getEloOfPlayer, options)
   await execChanges(changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer)
 }
 
-export { calculateChanges, execChanges, calculateAndExec, GetElo, ChangeElo, SetElo, PlayerObjectWithElo, Change }
+export { calculateChanges, execChanges, calculateAndExec, GetElo, ChangeElo, SetElo, PlayerObjectWithElo, Change, Options }

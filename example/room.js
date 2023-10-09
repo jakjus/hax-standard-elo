@@ -1,5 +1,5 @@
 import HaxballJS from "haxball.js";
-import { calculateChanges, execChanges, GetElo, ChangeElo, PlayerObjectWithElo } from "./elo";
+import { calculateChanges, execChanges } from "hax-standard-elo";
 
 const getRoom = async () => {
   const HBInit = await HaxballJS
@@ -11,7 +11,7 @@ const getRoom = async () => {
 }
 
 // example of in-memory data storage
-const memory: { [playerId: number]: PlayerObjectWithElo } = {}
+const memory = {}
 
 const run = async () => {
   const room = await getRoom()
@@ -22,14 +22,15 @@ const run = async () => {
     }
   }
 
-  const getEloOfPlayer: GetElo = async (playerId) => memory[playerId].elo
+  // implement get and change functions for our memory type
+  const getEloOfPlayer = async (playerId) => memory[playerId].elo
+  const changeEloOfPlayer = (playerId, change) => {
+    memory[playerId].elo += change
+  }
 
   const changeList = await calculateChanges(room, getEloOfPlayer)
   console.log(changeList)
 
-  const changeEloOfPlayer: ChangeElo = (playerId, change) => {
-    memory[playerId].elo += change
-  }
   await execChanges(changeList, getEloOfPlayer, changeEloOfPlayer)
   console.log(memory)
 }

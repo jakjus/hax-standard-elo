@@ -10,6 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.calculateAndExec = exports.execChanges = exports.calculateChanges = void 0;
+const defaults = {
+    k: 30
+};
 const getAvgElo = (playerListWithElo) => {
     if (playerListWithElo.length == 0) {
         throw ("there are no players with elo in one of the teams");
@@ -18,8 +21,9 @@ const getAvgElo = (playerListWithElo) => {
         .map(p => p.elo)
         .reduce((a, b) => a + b, 0) / playerListWithElo.length;
 };
-const calculateChanges = (room, getEloOfPlayer) => __awaiter(void 0, void 0, void 0, function* () {
-    const k = 30;
+const calculateChanges = (room, getEloOfPlayer, options) => __awaiter(void 0, void 0, void 0, function* () {
+    const mergedOptions = Object.assign(Object.assign({}, defaults), options);
+    const k = mergedOptions.k;
     const getp1 = (elo, enemyTeamElo) => 1 / (1 + Math.pow(10, ((elo - enemyTeamElo) / 400)));
     const scores = room.getScores();
     const winnerTeamId = scores.red > scores.blue ? 1 : 2;
@@ -29,7 +33,6 @@ const calculateChanges = (room, getEloOfPlayer) => __awaiter(void 0, void 0, voi
         return Object.assign(Object.assign({}, p), { elo });
     })));
     const playersWithElo = yield promisePlayersWithElo;
-    console.log('playerswithelo', playersWithElo);
     const losers = playersWithElo.filter(p => p.team == loserTeamId);
     const loserTeamElo = getAvgElo(losers);
     const winners = playersWithElo.filter(p => p.team == winnerTeamId);
@@ -56,7 +59,7 @@ const calculateChanges = (room, getEloOfPlayer) => __awaiter(void 0, void 0, voi
 });
 exports.calculateChanges = calculateChanges;
 const execChanges = (changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer) => __awaiter(void 0, void 0, void 0, function* () {
-    // either use SetElo or atomic ChangeElo
+    // either use atomic ChangeElo or non-atomic SetElo
     if (changeEloOfPlayer) {
         changeList.forEach(c => changeEloOfPlayer(c.playerId, c.change));
     }
@@ -71,8 +74,8 @@ const execChanges = (changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlay
     }
 });
 exports.execChanges = execChanges;
-const calculateAndExec = (room, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer) => __awaiter(void 0, void 0, void 0, function* () {
-    const changeList = yield calculateChanges(room, getEloOfPlayer);
+const calculateAndExec = (room, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer, options) => __awaiter(void 0, void 0, void 0, function* () {
+    const changeList = yield calculateChanges(room, getEloOfPlayer, options);
     yield execChanges(changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer);
 });
 exports.calculateAndExec = calculateAndExec;

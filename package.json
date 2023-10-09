@@ -1,10 +1,12 @@
 {
   "name": "hax-standard-elo",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "main": "dist/elo.js",
   "scripts": {
-    "start": "ts-node index.ts",
-    "lint": "eslint . --ext .ts"
+    "start": "ts-node dist/elo.ts",
+    "lint": "eslint . --ext .ts",
+    "test": "mocha",
+    "build": "tsc"
   },
   "author": "Jakub Juszko",
   "types": [
@@ -16,16 +18,19 @@
     "type": "git",
     "url": "git+https://github.com/jakjus/hax-standard-elo.git"
   },
-  "description": "Universal Elo Plugin for Haxball Rooms",
+  "description": "Standard Elo Plugin for Haxball Rooms",
   "dependencies": {
-    "haxball.js": "^2.1.2",
-    "ts-node": "^10.9.1"
+    "haxball.js": "^2.1.2"
   },
   "engines": {
     "npm": ">=8.6.0",
     "node": ">=16.0.0"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.2",
+    "mocha": "^10.2.0",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.1",
     "typedoc": "^0.25.2"
   }
 }
