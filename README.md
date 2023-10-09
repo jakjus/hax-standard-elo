@@ -12,9 +12,9 @@ Website documentation is available at [jakjus.github.io/hax-standard-elo/](https
 ## Usage
 Haxball rooms can use different kinds of data storage. It can be in-memory database, SQL database or other.
 
-To use the library, you have to implement interfaces for 
-- `getEloOfPlayer` - getting data of a player (including Elo) 
-- `changeEloOfPlayer` - changing data of a player
+To use the library, you have to implement the following interfaces:
+- `GetElo` - getting data of a player (including Elo) 
+- `ChangeElo` - changing data of a player
 
 You can find these definitions at [docs](https://jakjus.github.io/hax-standard-elo/).
 
