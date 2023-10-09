@@ -7,7 +7,7 @@ npm i hax-standard-elo
 ```
 
 ## Documentation
-Website documentation is available at [hax-standard-elo.github.io](https://hax-standard-elo.github.io)
+Website documentation is available at [jakjus.github.io/hax-standard-elo/](https://jakjus.github.io/hax-standard-elo/)
 
 ## Usage
 Haxball rooms can use different kinds of data storage. It can be in-memory database, SQL database or other.
@@ -16,7 +16,7 @@ To use the library, you have to implement interfaces for
 - `getEloOfPlayer` - getting data of a player (including Elo) 
 - `changeEloOfPlayer` - changing data of a player
 
-You can find these definitions at [docs](https://hax-standard-elo.github.io).
+You can find these definitions at [docs](https://jakjus.github.io/hax-standard-elo/).
 
 
 For SQL database, `getEloOfPlayer` could be:
