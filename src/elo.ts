@@ -34,7 +34,6 @@ const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo, option
   if (!scores) {
     throw("Game was not running and has no scores to calculate from.")
   }
-  console.log('scores are', scores)
   if (scores.red == scores.blue) {
     throw("Draw is not supported.")
   }
