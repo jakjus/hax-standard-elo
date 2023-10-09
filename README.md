@@ -99,6 +99,11 @@ The equivalent example for TypeScript is in [room.ts](example/room.ts).
 ## Logic
 This library uses Elo rating system as shown in the [Wikipedia](https://en.wikipedia.org/wiki/Elo_rating_system). Elo was designed for *1v1* (2 entities competing against each other) with *no draws*. Therefore, to make it feasible in *many players* vs *many players* scenario, each player is changed using his *individual* elo and enemy *team average* elo. It helps having normally distributed Elo rankings across playerbase with smaller variance.
 
+## Build
+```
+npm run build
+```
+
 ## Sidenotes
 1. Getting data
 For performance purposes, you may want to get all the players data in one query. Then `getEloOfPlayer` should read individual players Elo from parsed data.
