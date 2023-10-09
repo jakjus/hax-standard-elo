@@ -10,7 +10,7 @@ npm i hax-standard-elo
 ```
 
 ## Documentation
-Website documentation is available at [https://hax-standard-elo.github.io](https://hax-standard-elo.github.io)
+Website documentation is available at [hax-standard-elo.github.io](https://hax-standard-elo.github.io)
 
 ## Usage
 Haxball rooms can use different kinds of data storage. It can be in-memory database, SQL database or other.
