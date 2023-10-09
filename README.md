@@ -19,11 +19,9 @@ To use the library, you have to implement interfaces for
 You can find these definitions at [docs](https://hax-standard-elo.github.io).
 
 
-For SQL database, it could be:
+For SQL database, `getEloOfPlayer` could be:
 ```js
-// db connection
-const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('./db/chinook.db');
+// ...init sqlite package and db
 
 const getEloOfPlayer = async (playerId) => 
 { 
@@ -32,11 +30,11 @@ const getEloOfPlayer = async (playerId) =>
   })
 }
 
-// do the same with changeEloOfPlayer
+// do the same for changeEloOfPlayer
 // const changeEloOfPlayer = ...
-
-db.close()
 ```
+Then, you pass these in `room.onTeamVictory` in `calculateChanges` and `execChanges`, as shown in an example below.
+
 
 ## Example
 
@@ -103,4 +101,4 @@ This library uses Elo rating system as shown in the [Wikipedia](https://en.wikip
 
 ## Sidenotes
 1. Getting data
-For performance purposes, you may want to get all the players data in one query. Then "getEloOfPlayer" should read individual players Elo from parsed data.
+For performance purposes, you may want to get all the players data in one query. Then `getEloOfPlayer` should read individual players Elo from parsed data.
