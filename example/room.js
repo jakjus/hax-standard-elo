@@ -1,5 +1,4 @@
 const HaxballJS = require("haxball.js");
-//const { calculateChanges, execChanges } = require("hax-standard-elo");
 const { calculateChanges, execChanges } = require("hax-standard-elo");
 
 const getRoom = async () => {

@@ -44,7 +44,6 @@ The following example uses in-process memory within Haxball.js room script.
 // room.js
 
 const HaxballJS = require("haxball.js");
-//const { calculateChanges, execChanges } = require("hax-standard-elo");
 const { calculateChanges, execChanges } = require("hax-standard-elo");
 
 const getRoom = async () => {
