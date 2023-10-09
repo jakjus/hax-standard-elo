@@ -88,4 +88,4 @@ const calculateAndExec = async (room: RoomObject, getEloOfPlayer: GetElo, change
   await execChanges(changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer)
 }
 
-export { calculateChanges, execChanges, calculateAndExec, GetElo, ChangeElo, SetElo, PlayerObjectWithElo, Change, Options }
+export { calculateChanges, execChanges, calculateAndExec, GetElo, ChangeElo, SetElo, PlayerObjectWithElo, Change, Options, defaults }

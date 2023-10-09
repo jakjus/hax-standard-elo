@@ -15,14 +15,14 @@
 <div class="tsd-panel tsd-typography"><a id="md:haxball-standard-elo" class="tsd-anchor"></a><h1><a href="#md:haxball-standard-elo">Haxball Standard Elo</a></h1><p>Plugin for calculating ranking points according to Elo system. To be used with node package <a href="https://github.com/mertushka/haxball.js">haxball.js</a></p>
 <a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> </span><span class="hl-0">hax</span><span class="hl-1">-</span><span class="hl-0">standard</span><span class="hl-1">-</span><span class="hl-0">elo</span>
 </code><button>Copy</button></pre>
-<a id="md:documentation" class="tsd-anchor"></a><h2><a href="#md:documentation">Documentation</a></h2><p>Website documentation is available at <a href="https://hax-standard-elo.github.io">hax-standard-elo.github.io</a></p>
+<a id="md:documentation" class="tsd-anchor"></a><h2><a href="#md:documentation">Documentation</a></h2><p>Website documentation is available at <a href="https://jakjus.github.io/hax-standard-elo/">jakjus.github.io/hax-standard-elo/</a></p>
 <a id="md:usage" class="tsd-anchor"></a><h2><a href="#md:usage">Usage</a></h2><p>Haxball rooms can use different kinds of data storage. It can be in-memory database, SQL database or other.</p>
 <p>To use the library, you have to implement interfaces for </p>
 <ul>
 <li><code>getEloOfPlayer</code> - getting data of a player (including Elo) </li>
 <li><code>changeEloOfPlayer</code> - changing data of a player</li>
 </ul>
-<p>You can find these definitions at <a href="https://hax-standard-elo.github.io">docs</a>.</p>
+<p>You can find these definitions at <a href="https://jakjus.github.io/hax-standard-elo/">docs</a>.</p>
 <p>For SQL database, <code>getEloOfPlayer</code> could be:</p>
 <pre><code class="language-js"><span class="hl-2">// ...init sqlite package and db</span><br/><br/><span class="hl-3">const</span><span class="hl-1"> </span><span class="hl-4">getEloOfPlayer</span><span class="hl-1"> = </span><span class="hl-3">async</span><span class="hl-1"> (</span><span class="hl-0">playerId</span><span class="hl-1">) </span><span class="hl-3">=&gt;</span><span class="hl-1"> </span><br/><span class="hl-1">{ </span><br/><span class="hl-1">  </span><span class="hl-0">db</span><span class="hl-1">.</span><span class="hl-4">all</span><span class="hl-1">(</span><span class="hl-5">`SELECT elo FROM player WHERE playerId = ?`</span><span class="hl-1">, [</span><span class="hl-0">playerId</span><span class="hl-1">], (</span><span class="hl-0">err</span><span class="hl-1">, </span><span class="hl-0">rows</span><span class="hl-1">) </span><span class="hl-3">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-0">rows</span><span class="hl-1">.</span><span class="hl-4">forEach</span><span class="hl-1">((</span><span class="hl-0">row</span><span class="hl-1">) </span><span class="hl-3">=&gt;</span><span class="hl-1"> </span><span class="hl-0">return</span><span class="hl-1"> </span><span class="hl-0">row</span><span class="hl-1">.</span><span class="hl-0">elo</span><span class="hl-1">)</span><br/><span class="hl-1">  })</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-2">// do the same for changeEloOfPlayer</span><br/><span class="hl-2">// const changeEloOfPlayer = ...</span>
 </code><button>Copy</button></pre>
@@ -79,6 +79,7 @@ For performance purposes, you may want to get all the players data in one query.
 <li><a href="types/ChangeElo.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>ChangeElo</a></li>
 <li><a href="types/GetElo.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>GetElo</a></li>
 <li><a href="types/SetElo.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2097152"></use></svg>SetElo</a></li>
+<li><a href="variables/defaults.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-32"></use></svg>defaults</a></li>
 <li><a href="functions/calculateAndExec.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg>calculateAndExec</a></li>
 <li><a href="functions/calculateChanges.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg>calculateChanges</a></li>
 <li><a href="functions/execChanges.html"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-64"></use></svg>execChanges</a></li></ul></nav></div></div></div>
