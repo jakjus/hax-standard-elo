@@ -1,26 +1,28 @@
-## Haxball Standard Elo
+# Haxball Standard Elo
 Plugin for calculating ranking points according to ELO system. To be used with node package [haxball.js](https://github.com/mertushka/haxball.js)
 
-### Requirements
+## Requirements
 - Haxball room script in which you want to use the library
 
-### Installation
+## Installation
 ```
 npm i hax-standard-elo
 ```
 
-### Documentation
-Generated documentation is available at [https://hax-standard-elo.github.io](https://hax-standard-elo.github.io)
+## Documentation
+Website documentation is available at [https://hax-standard-elo.github.io](https://hax-standard-elo.github.io)
 
-### Usage
+## Usage
 Haxball rooms can use different kinds of data storage. It can be in-memory database, SQL database or other.
 
 To use the library, you have to implement interfaces for 
 - `getEloOfPlayer` - getting data of a player (including ELO) 
 - `changeEloOfPlayer` - changing data of a player
+You can find these definitions at [docs](https://hax-standard-elo.github.io).
+
 
 For SQL database, it could be:
-```
+```js
 // db connection
 const sqlite3 = require('sqlite3').verbose();
 let db = new sqlite3.Database('./db/chinook.db');
@@ -32,15 +34,15 @@ const getEloOfPlayer = async (playerId) =>
   })
 }
 
-// do the same to changeEloOfPlayer
+// do the same with changeEloOfPlayer
 // const changeEloOfPlayer = ...
 
-// db close
+db.close()
 ```
 
 ### Example
 
-The following exaple uses in-process memory.
+The following example uses in-process memory within Haxball.js room script.
 
 ```js
 // room.js
