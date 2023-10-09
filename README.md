@@ -1,9 +1,6 @@
 # Haxball Standard Elo
 Plugin for calculating ranking points according to Elo system. To be used with node package [haxball.js](https://github.com/mertushka/haxball.js)
 
-## Requirements
-- Haxball room script in which you want to use the library
-
 ## Installation
 ```
 npm i hax-standard-elo
@@ -18,6 +15,7 @@ Haxball rooms can use different kinds of data storage. It can be in-memory datab
 To use the library, you have to implement interfaces for 
 - `getEloOfPlayer` - getting data of a player (including Elo) 
 - `changeEloOfPlayer` - changing data of a player
+
 You can find these definitions at [docs](https://hax-standard-elo.github.io).
 
 
