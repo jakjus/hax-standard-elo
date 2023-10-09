@@ -2,9 +2,7 @@
 Plugin for calculating ranking points according to ELO system. To be used with node package [haxball.js](https://github.com/mertushka/haxball.js)
 
 ### Requirements
-- node.js
-- npm
-- haxball.js
+- Haxball room script in which you want to use the library
 
 ### Installation
 ```
