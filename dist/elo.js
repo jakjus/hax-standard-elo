@@ -15,7 +15,7 @@ const defaults = {
 };
 const getAvgElo = (playerListWithElo) => {
     if (playerListWithElo.length == 0) {
-        throw ("there are no players with elo in one of the teams");
+        throw ("There are no players with elo in one of the teams.");
     }
     return playerListWithElo
         .map(p => p.elo)
@@ -26,6 +26,13 @@ const calculateChanges = (room, getEloOfPlayer, options) => __awaiter(void 0, vo
     const k = mergedOptions.k;
     const getp1 = (elo, enemyTeamElo) => 1 / (1 + Math.pow(10, ((elo - enemyTeamElo) / 400)));
     const scores = room.getScores();
+    if (!scores) {
+        throw ("Game was not running and has no scores to calculate from.");
+    }
+    console.log('scores are', scores);
+    if (scores.red == scores.blue) {
+        throw ("Draw is not supported.");
+    }
     const winnerTeamId = scores.red > scores.blue ? 1 : 2;
     const loserTeamId = scores.red > scores.blue ? 2 : 1;
     const promisePlayersWithElo = Promise.all(room.getPlayerList().filter(p => p.team != 0).map((p) => __awaiter(void 0, void 0, void 0, function* () {
@@ -42,7 +49,7 @@ const calculateChanges = (room, getEloOfPlayer, options) => __awaiter(void 0, vo
         const p1 = getp1(p.elo, winnerTeamElo);
         const change = -Math.round((k * (1 - p1)));
         if (isNaN(change)) {
-            throw "change is not a number";
+            throw ("Change is not a number.");
         }
         return { playerId: p.id, change };
     });
@@ -50,7 +57,7 @@ const calculateChanges = (room, getEloOfPlayer, options) => __awaiter(void 0, vo
         const p1 = getp1(p.elo, loserTeamElo);
         const change = Math.round((k * p1));
         if (isNaN(change)) {
-            throw "change is not a number";
+            throw ("Change is not a number.");
         }
         return { playerId: p.id, change };
     });
@@ -70,7 +77,7 @@ const execChanges = (changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlay
         }));
     }
     else {
-        throw ("Specify [changeEloOfPlayer AND getEloOfPlayer] OR setEloOfPlayer");
+        throw ("Specify [changeEloOfPlayer AND getEloOfPlayer] OR setEloOfPlayer.");
     }
 });
 exports.execChanges = execChanges;

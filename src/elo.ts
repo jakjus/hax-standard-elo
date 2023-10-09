@@ -18,7 +18,7 @@ interface PlayerObjectWithElo extends PlayerObject {
 
 const getAvgElo = (playerListWithElo: PlayerObjectWithElo[]): number => {
   if (playerListWithElo.length == 0) {
-    throw("there are no players with elo in one of the teams")
+    throw("There are no players with elo in one of the teams.")
   }
   return playerListWithElo
   .map(p => p.elo)
@@ -31,6 +31,13 @@ const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo, option
   const getp1 = (elo: number, enemyTeamElo: number) => 1 / (1 + 10 ** ((elo - enemyTeamElo) / 400));
 
   const scores = room.getScores()
+  if (!scores) {
+    throw("Game was not running and has no scores to calculate from.")
+  }
+  console.log('scores are', scores)
+  if (scores.red == scores.blue) {
+    throw("Draw is not supported.")
+  }
   const winnerTeamId = scores.red > scores.blue ? 1 : 2
   const loserTeamId = scores.red > scores.blue ? 2 : 1
 
@@ -48,14 +55,14 @@ const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo, option
   const changeLosers = losers.map(p => {
     const p1 = getp1(p.elo, winnerTeamElo)
     const change = -Math.round((k * (1 - p1)))
-    if (isNaN(change)) { throw "change is not a number" }
+    if (isNaN(change)) { throw("Change is not a number.") }
     return { playerId: p.id, change }
   })
 
   const changeWinners = winners.map(p => {
     const p1 = getp1(p.elo, loserTeamElo)
     const change = Math.round((k * p1))
-    if (isNaN(change)) { throw "change is not a number" }
+    if (isNaN(change)) { throw("Change is not a number.")}
     return { playerId: p.id, change }
   })
 
@@ -73,7 +80,7 @@ const execChanges = async (changeList: Change[], getEloOfPlayer?: GetElo, change
       setEloOfPlayer(c.playerId, elo+c.change)
     })
   } else {
-    throw("Specify [changeEloOfPlayer AND getEloOfPlayer] OR setEloOfPlayer") 
+    throw("Specify [changeEloOfPlayer AND getEloOfPlayer] OR setEloOfPlayer.") 
   }
 }
 

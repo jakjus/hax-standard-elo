@@ -1,5 +1,6 @@
-import HaxballJS from "haxball.js";
-import { calculateChanges, execChanges } from "hax-standard-elo";
+const HaxballJS = require("haxball.js");
+//const { calculateChanges, execChanges } = require("hax-standard-elo");
+const { calculateChanges, execChanges } = require("hax-standard-elo");
 
 const getRoom = async () => {
   const HBInit = await HaxballJS
@@ -17,6 +18,7 @@ const run = async () => {
   const room = await getRoom()
 
   room.onPlayerJoin = (player) => {
+    room.setPlayerAdmin(player.id, true)
     if (!memory[player.id]) {
       memory[player.id] = {...player, elo: 1200}
     }
@@ -28,11 +30,20 @@ const run = async () => {
     memory[playerId].elo += change
   }
 
-  const changeList = await calculateChanges(room, getEloOfPlayer)
-  console.log(changeList)
+  room.onTeamVictory = async _ => {
+    try {
+      const changeList = await calculateChanges(room, getEloOfPlayer)
+      console.log(changeList)
+      await execChanges(changeList, getEloOfPlayer, changeEloOfPlayer)
+      console.log(memory)
+    } catch(e) {
+      console.log(e)
+    }
+  }
 
-  await execChanges(changeList, getEloOfPlayer, changeEloOfPlayer)
-  console.log(memory)
+  room.onRoomLink = link => {
+    console.log(link)
+  }
 }
 
 run()
