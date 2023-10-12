@@ -1,6 +1,6 @@
 {
   "name": "hax-standard-elo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/elo.js",
   "scripts": {
     "start": "ts-node dist/elo.ts",
@@ -10,7 +10,8 @@
   },
   "author": "Jakub Juszko",
   "types": [
-    "haxball-headless-browser"
+    "haxball-headless-browser",
+    "dist/elo.d.ts"
   ],
   "license": "MIT",
   "homepage": "https://github.com/jakjus/hax-standard-elo#readme",
