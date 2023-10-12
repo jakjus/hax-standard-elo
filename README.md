@@ -10,33 +10,13 @@ npm i hax-standard-elo
 Website documentation is available at [jakjus.github.io/hax-standard-elo/](https://jakjus.github.io/hax-standard-elo/)
 
 ## Usage
-Haxball rooms can use different kinds of data storage. It can be in-memory database, SQL database or other.
-
-To use the library, you have to implement the following interfaces:
+Your haxball room can use in-memory database, SQL database or other. We do not know how to get elo of player, so to make it possible for every memory, you have to provide functions that get and set elo's. All the other calculations will be handled by plugin.
 - `GetElo` - getting data of a player (including Elo) 
 - `ChangeElo` - changing data of a player
 
 You can find these definitions at [docs](https://jakjus.github.io/hax-standard-elo/).
 
-
-For SQL database, `getEloOfPlayer` could be:
-```js
-// ...init sqlite package and db
-
-const getEloOfPlayer = async (playerId) => 
-{ 
-  db.all(`SELECT elo FROM player WHERE playerId = ?`, [playerId], (err, rows) => {
-    rows.forEach((row) => return row.elo)
-  })
-}
-
-// do the same for changeEloOfPlayer
-// const changeEloOfPlayer = ...
-```
-Then, you pass these in `room.onTeamVictory` in `calculateChanges` and `execChanges`, as shown in an example below.
-
-
-## Example
+## Getting Started
 
 The following example uses in-process memory within Haxball.js room script.
 
@@ -94,6 +74,23 @@ run()
 ```
 
 The equivalent example for TypeScript is in [room.ts](example/room.ts).
+
+### Example for SQL DB
+
+For SQL database, `getEloOfPlayer` could be:
+```js
+// ...init sqlite package and db
+
+const getEloOfPlayer = async (playerId) => 
+{ 
+  db.all(`SELECT elo FROM player WHERE playerId = ?`, [playerId], (err, rows) => {
+    rows.forEach((row) => return row.elo)
+  })
+}
+
+// do the adequate SQL query for changeEloOfPlayer
+// const changeEloOfPlayer = ...
+```
 
 ## Logic
 This library uses Elo rating system as shown in the [Wikipedia](https://en.wikipedia.org/wiki/Elo_rating_system). Elo was designed for *1v1* (2 entities competing against each other) with *no draws*. Therefore, to make it feasible in *many players* vs *many players* scenario, each player is changed using his *individual* elo and enemy *team average* elo. It helps having normally distributed Elo rankings across playerbase with smaller variance.
