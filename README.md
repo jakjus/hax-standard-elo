@@ -10,7 +10,7 @@ npm i hax-standard-elo
 Website documentation is available at [jakjus.github.io/hax-standard-elo/](https://jakjus.github.io/hax-standard-elo/)
 
 ## Usage
-Your haxball room can use in-memory database, SQL database or other. We do not know how to get elo of player, so to make it possible for every memory, you have to provide functions that get and set elo's. All the other calculations will be handled by plugin.
+Your haxball room can use in-memory database, SQL database or other. You must provide functions that get and set elo in your own room's data access layer. All the other calculations will be handled by plugin.
 - `GetElo` - getting data of a player (including Elo) 
 - `ChangeElo` - changing data of a player
 
