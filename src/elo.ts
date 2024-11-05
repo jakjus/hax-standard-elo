@@ -12,7 +12,10 @@ const defaults: Options = {
   k: 30
 }
 
-interface PlayerObjectWithElo extends PlayerObject {
+interface PlayerObjectWithElo {
+  id: number,
+  auth: string,
+  team: TeamID,
   elo: number,
 }
 
@@ -79,7 +82,7 @@ const execChanges = async (changeList: Change[], getEloOfPlayer?: GetElo, change
       setEloOfPlayer(c.playerId, elo+c.change)
     })
   } else {
-    throw("Specify [changeEloOfPlayer AND getEloOfPlayer] OR setEloOfPlayer.") 
+    throw("Specify [changeEloOfPlayer AND getEloOfPlayer] OR setEloOfPlayer.")
   }
 }
 
