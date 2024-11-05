@@ -25,7 +25,7 @@ const getAvgElo = (playerListWithElo: PlayerObjectWithElo[]): number => {
   .reduce((a,b) => a+b, 0)/playerListWithElo.length
 }
 
-const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo, options?: Options): Promise<Change[]> => {
+const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo, playerlistWithElo?: PlayerObjectWithElo[], options?: Options): Promise<Change[]> => {
   const mergedOptions: Options = { ...defaults, ...options }
   const k = mergedOptions.k
   const getp1 = (elo: number, enemyTeamElo: number) => 1 / (1 + 10 ** ((elo - enemyTeamElo) / 400));
@@ -40,10 +40,10 @@ const calculateChanges = async (room: RoomObject, getEloOfPlayer: GetElo, option
   const winnerTeamId = scores.red > scores.blue ? 1 : 2
   const loserTeamId = scores.red > scores.blue ? 2 : 1
 
-  const promisePlayersWithElo: Promise<PlayerObjectWithElo[]> = Promise.all(room.getPlayerList().filter(p => p.team != 0).map(async p => { 
+  const promisePlayersWithElo: Promise<PlayerObjectWithElo[]> = Promise.all(room.getPlayerList().filter(p => p.team != 0).map(async p => {
     const elo = await getEloOfPlayer(p.id)
     return {...p, elo }}))
-  const playersWithElo = await promisePlayersWithElo
+  const playersWithElo = playerlistWithElo || await promisePlayersWithElo
 
   const losers = playersWithElo.filter(p => p.team == loserTeamId)
   const loserTeamElo = getAvgElo(losers)
@@ -83,8 +83,8 @@ const execChanges = async (changeList: Change[], getEloOfPlayer?: GetElo, change
   }
 }
 
-const calculateAndExec = async (room: RoomObject, getEloOfPlayer: GetElo, changeEloOfPlayer?: ChangeElo, setEloOfPlayer?: SetElo, options?: Options): Promise<void> => {
-  const changeList = await calculateChanges(room, getEloOfPlayer, options)
+const calculateAndExec = async (room: RoomObject, getEloOfPlayer: GetElo, changeEloOfPlayer?: ChangeElo, setEloOfPlayer?: SetElo, playerlistWithElo?: PlayerObjectWithElo[], options?: Options): Promise<void> => {
+  const changeList = await calculateChanges(room, getEloOfPlayer, playerlistWithElo, options)
   await execChanges(changeList, getEloOfPlayer, changeEloOfPlayer, setEloOfPlayer)
 }
 

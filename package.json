@@ -1,6 +1,6 @@
 {
   "name": "hax-standard-elo",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "main": "dist/elo.js",
   "scripts": {
     "start": "ts-node dist/elo.ts",
@@ -29,6 +29,7 @@
   },
   "devDependencies": {
     "@types/mocha": "^10.0.2",
+    "eslint": "^9.14.0",
     "mocha": "^10.2.0",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",

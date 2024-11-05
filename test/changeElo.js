@@ -31,7 +31,7 @@ describe("changeElo", () => {
     const changeList = await calculateChanges(room, getEloOfPlayer)
     assert.equal(changeList.length, 4, "changes length is 4")
   })
-  it("should have winners gain elo and losers lose elo", async () => { 
+  it("should have winners gain elo and losers lose elo", async () => {
     const changeList = await calculateChanges(room, getEloOfPlayer)
     assert(changeList.find(c => c.playerId == 0).change > 0, "team 1 wins")
     assert(changeList.find(c => c.playerId == 1).change > 0, "team 1 wins")
